@@ -13,9 +13,6 @@ Mimic the Gibberish-AES JS library API. All constants are defaulted for AES-256.
 Adapting the script for AES-128 et AES-192 should be relatively straightforward.
 """
 
-def s2a(input_string: str):
-    return [int(c) for c in input_string]
-
 def rawEncrypt(plaintext: bytes, key: bytes, iv: bytes) -> bytes:
     """Return the padded cipher text with the default blocksize of 16."""
     cipher = Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC, iv=iv)
