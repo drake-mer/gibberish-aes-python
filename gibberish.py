@@ -17,7 +17,6 @@ def rawEncrypt(plaintext: bytes, key: bytes, iv: bytes) -> bytes:
     return Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC, iv=iv).encrypt(
         Crypto.Util.Padding.pad(plaintext, 16)
     )
-    return ciphertext
 
 
 def rawDecrypt(ciphertext: bytes, key: bytes, iv: bytes) -> bytes:
