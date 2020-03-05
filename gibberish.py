@@ -29,8 +29,8 @@ def rawDecrypt(ciphertext: bytes, key: bytes) -> bytes:
 def openSSLKey(password: str, salt: bytes):
     password = password.encode('utf-8') + salt
     hash_1 = hashlib.md5(password).digest()
-    hash_2 = hashlib.md5(hash_1).digest()
-    hash_3 = hashlib.md5(hash_2).digest()
+    hash_2 = hashlib.md5(hash_1 + password).digest()
+    hash_3 = hashlib.md5(hash_2 + password).digest()
     return (hash_1 +  hash_2, hash_3)
 
 def enc(plaintext: str, password: str):
