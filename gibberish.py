@@ -20,8 +20,8 @@ def rawEncrypt(plaintext: bytes, key: bytes, iv: bytes) -> bytes:
     return ciphertext
 
 
-def rawDecrypt(ciphertext: bytes, key: bytes) -> bytes:
-    cipher = Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC)
+def rawDecrypt(ciphertext: bytes, key: bytes, iv: bytes) -> bytes:
+    cipher = Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC, iv=iv)
     return Crypto.Util.Padding.unpad(cipher.decrypt(ciphertext), 16)
 
 
@@ -45,4 +45,4 @@ def dec(ciphertext: str, password: str):
     salt = ciphertext.lstrip(b'Salted__')[:8]
     ciphertext = ciphertext.lstrip(b'Salted__')[8:]
     key, iv = openSSLKey(password, salt)
-    return rawDecrypt(ciphertext, key)
+    return rawDecrypt(ciphertext, key, iv)
