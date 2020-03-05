@@ -1,7 +1,6 @@
 
 import base64
 import hashlib
-import struct
 import Crypto
 import Crypto.Cipher.AES
 import Crypto.Random
