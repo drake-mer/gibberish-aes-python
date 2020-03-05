@@ -19,9 +19,11 @@ def rawEncrypt(plaintext: bytes, key: bytes, iv: bytes) -> bytes:
     ciphertext = cipher.encrypt(Crypto.Util.Padding.pad(plaintext, 16))
     return ciphertext
 
+
 def rawDecrypt(ciphertext: bytes, key: bytes) -> bytes:
     cipher = Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC)
     return Crypto.Util.Padding.unpad(cipher.decrypt(ciphertext), 16)
+
 
 def openSSLKey(password: str, salt: bytes):
     password = password.encode('utf-8') + salt
@@ -30,11 +32,13 @@ def openSSLKey(password: str, salt: bytes):
     hash_3 = hashlib.md5(hash_2 + password).digest()
     return (hash_1 +  hash_2, hash_3)
 
+
 def enc(plaintext: str, password: str):
     salt = Crypto.Random.get_random_bytes(8)
     key, iv = openSSLKey(password, salt)
     cipher = Crypto.Cipher.AES.new(key, Crypto.Cipher.AES.MODE_CBC, iv=iv)
     return base64.b64encode(b'Salted__' + salt + rawEncrypt(plaintext.encode('utf-8'), key, iv))
+
 
 def dec(ciphertext: str, password: str):
     ciphertext = base64.b64decode(ciphertext)
